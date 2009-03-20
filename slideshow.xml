@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <slideshow>
+	<timer>3</timer>
 	<image>
 		<src>myimage1.jpg</src>
 		<number>1</number>

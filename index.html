@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//  DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+		<title>Slideshow Demo</title>
+		<script src="jquery.js" type="text/javascript"></script>
+		<script src="jquery.timer.js" type="text/javascript"></script>
+		<script type="application/javascript">
+		$(function() {
+			var num_images = 3;
+			/*
+			var xml = '';
+			$.ajax({
+				type: "get",
+				url: "slideshow.xml",
+				datatype: "xml",
+				success: function(xml) {
+					var images = $(xml).find('slideshow > image');
+					num_images = images.length;
+					alert(num_images);
+					//num_images = $(xml).find('slideshow > image').length;
+					xml = xml;
+				}
+			}); //close $.ajax(
+			*/
+			for (var i = 0; i < num_images; i++) {
+				xml.find('slideshow > image:eq(' + i + ')').each(function() {
+					var src_text = current_element.find('src').text();
+					var number_text = current_element.find('number').text();
+					var caption_text = current_element.find('caption').text();
+					alert(src_text + "::" + number_text + "::" + caption_text);
+					//$('#slideshow_target').html('<img src="' + src_text + '" alt="' + caption_text + '" /><p>' + caption_text + '</p>');
+				});
+			}
+
+			/*
+			//$('#slideshow_start a').click(function() {
+			$.timer(1000, function (timer) {
+				$.ajax({
+					type: "get",
+					url: "slideshow.xml",
+					datatype: "xml",
+					success: function(xml) {
+						//Load the slideshow's first image
+						var elements = $(xml).find('slideshow > image');
+						for (var i = 0; i < elements.length; i++) {
+							//var id_text = $(this).attr('src');
+							alert(i);
+							current_element = elements.eq(i);
+							var src_text = current_element.find('src').text();
+							var number_text = current_element.find('number').text();
+							var caption_text = current_element.find('caption').text();
+							$(this).queue(function() {
+								//$('<li></li>').html(name_text + ' (' + id_text + ')').appendTo('#slideshow_target');
+								alert(src_text + "::" + number_text + "::" + caption_text);
+								//$('#slideshow_target').html('<img src="' + src_text + '" alt="' + caption_text + '" /><p>' + caption_text + '</p>');
+							});
+						}
+					}
+				}); //close $.ajax(
+				$(this).dequeue();
+				timer.reset(3000);
+			}); //close click(
+			*/
+		}); //close $(
+		</script>
+	</head>
+	<body>
+		<div id="slideshow_target">
+		</div>
+		<div id="slideshow_start">
+			<a href="#">Click here to load addresses</a>
+		</div>
+	</body>
+</html>
