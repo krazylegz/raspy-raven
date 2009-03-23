@@ -7,63 +7,34 @@
 		<script src="jquery.js" type="text/javascript"></script>
 		<script src="jquery.timer.js" type="text/javascript"></script>
 		<script type="application/javascript">
-		$(function() {
-			var num_images = 3;
-			/*
-			var xml = '';
-			$.ajax({
-				type: "get",
-				url: "slideshow.xml",
-				datatype: "xml",
-				success: function(xml) {
-					var images = $(xml).find('slideshow > image');
-					num_images = images.length;
-					alert(num_images);
-					//num_images = $(xml).find('slideshow > image').length;
-					xml = xml;
-				}
-			}); //close $.ajax(
-			*/
-			for (var i = 0; i < num_images; i++) {
-				xml.find('slideshow > image:eq(' + i + ')').each(function() {
-					var src_text = current_element.find('src').text();
-					var number_text = current_element.find('number').text();
-					var caption_text = current_element.find('caption').text();
-					alert(src_text + "::" + number_text + "::" + caption_text);
-					//$('#slideshow_target').html('<img src="' + src_text + '" alt="' + caption_text + '" /><p>' + caption_text + '</p>');
-				});
+			function SlideshowImage(src, caption) {
+				this.src = src;
+				this.caption = caption;
 			}
-
-			/*
-			//$('#slideshow_start a').click(function() {
-			$.timer(1000, function (timer) {
+			var images = [];
+			function load() {
 				$.ajax({
-					type: "get",
+					type: "GET",
 					url: "slideshow.xml",
-					datatype: "xml",
+					dataType: "xml",
+					async: false,
 					success: function(xml) {
-						//Load the slideshow's first image
-						var elements = $(xml).find('slideshow > image');
-						for (var i = 0; i < elements.length; i++) {
-							//var id_text = $(this).attr('src');
-							alert(i);
-							current_element = elements.eq(i);
-							var src_text = current_element.find('src').text();
-							var number_text = current_element.find('number').text();
-							var caption_text = current_element.find('caption').text();
-							$(this).queue(function() {
-								//$('<li></li>').html(name_text + ' (' + id_text + ')').appendTo('#slideshow_target');
-								alert(src_text + "::" + number_text + "::" + caption_text);
-								//$('#slideshow_target').html('<img src="' + src_text + '" alt="' + caption_text + '" /><p>' + caption_text + '</p>');
-							});
-						}
+						$(xml).find('slideshow > image').each(function(){
+							//var id_text = $(this).attr('id')
+							var src_text = $(this).find('src').text()
+							var number_text = $(this).find('number').text()
+							var caption_text = $(this).find('caption').text()
+							//$('<li></li>').html(name_text + ' (' + id_text + ')').appendTo('#update-target ol');
+							//alert(src_text + "::" + number_text + "::" + caption_text);
+							images.push(new SlideshowImage(src_text, caption_text));
+						}); // each(
+						alert("In: " + images.toString() + "::" + images.length);
 					}
-				}); //close $.ajax(
-				$(this).dequeue();
-				timer.reset(3000);
-			}); //close click(
-			*/
-		}); //close $(
+				}); // $.ajax(
+			}
+			alert("Pre: " + images.toString() + "::" + images.length);
+			load();
+			alert("Post: " + images.toString() + "::" + images.length);
 		</script>
 	</head>
 	<body>
