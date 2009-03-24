@@ -1,5 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//  DTD HTML 4.01//EN"
-"http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//  DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 	<head>
 		<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
@@ -26,9 +25,7 @@
 						var images = [];
 						var timer = 1000;
 						$(xml).find('slideshow > images > image').each(function(){
-							//var id_text = $(this).attr('id')
 							var src_text = $(this).find('src').text()
-							var number_text = $(this).find('number').text()
 							var caption_text = $(this).find('caption').text()
 							images.push(new SlideshowImage(src_text, caption_text));
 						}); // each(
@@ -36,30 +33,14 @@
 							timer = $(this).find('timer').text()
 						}); // each(
 						slideshow_config = new SlideshowConfig(images, timer);
-						//alert("In: " + images.toString() + "::" + images.length);
 					}
 				}); // $.ajax(
 			}
-			//alert("Pre: " + images.toString() + "::" + images.length);
 			load();
-			//alert("Post: " + images.toString() + "::" + images.length);
-			//alert(slideshow_config.delay);
-			/*
-			$.timer(0, function (timer) {
-				for (var i = 0; i < slideshow_config.images.length; i++) {
-					$('#slideshow_target').html('<img src="' + slideshow_config.images[i].src + '" alt="' + slideshow_config.images[i].src + '" /><p>' + slideshow_config.images[i].src + '</p>');
-					alert(slideshow_config.images[i].src);
-					timer.reset(slideshow_config.delay);
-				}
-			});
-			*/
 			var i = 0;
 			$.timer(0, function (timer) {
-				//for (var i = 0; i < slideshow_config.images.length; i++) {
-				//}
 				if (i >= slideshow_config.images.length) i = 0;
 				$('#slideshow_target').html('<img src="' + slideshow_config.images[i].src + '" alt="' + slideshow_config.images[i].src + '" /><p>' + slideshow_config.images[i].src + '</p>');
-				alert(slideshow_config.images[i].src);
 				i++;
 				timer.reset(slideshow_config.delay);
 			});
