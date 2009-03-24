@@ -7,11 +7,15 @@
 		<script src="jquery.js" type="text/javascript"></script>
 		<script src="jquery.timer.js" type="text/javascript"></script>
 		<script type="application/javascript">
+			var slideshow_config = '';
 			function SlideshowImage(src, caption) {
 				this.src = src;
 				this.caption = caption;
 			}
-			var images = [];
+			function SlideshowConfig(images, delay) {
+				this.images = images;
+				this.delay = delay;
+			}
 			function load() {
 				$.ajax({
 					type: "GET",
@@ -19,29 +23,50 @@
 					dataType: "xml",
 					async: false,
 					success: function(xml) {
-						$(xml).find('slideshow > image').each(function(){
+						var images = [];
+						var timer = 1000;
+						$(xml).find('slideshow > images > image').each(function(){
 							//var id_text = $(this).attr('id')
 							var src_text = $(this).find('src').text()
 							var number_text = $(this).find('number').text()
 							var caption_text = $(this).find('caption').text()
-							//$('<li></li>').html(name_text + ' (' + id_text + ')').appendTo('#update-target ol');
-							//alert(src_text + "::" + number_text + "::" + caption_text);
 							images.push(new SlideshowImage(src_text, caption_text));
 						}); // each(
-						alert("In: " + images.toString() + "::" + images.length);
+						$(xml).find('slideshow > settings').each(function(){
+							timer = $(this).find('timer').text()
+						}); // each(
+						slideshow_config = new SlideshowConfig(images, timer);
+						//alert("In: " + images.toString() + "::" + images.length);
 					}
 				}); // $.ajax(
 			}
-			alert("Pre: " + images.toString() + "::" + images.length);
+			//alert("Pre: " + images.toString() + "::" + images.length);
 			load();
-			alert("Post: " + images.toString() + "::" + images.length);
+			//alert("Post: " + images.toString() + "::" + images.length);
+			//alert(slideshow_config.delay);
+			/*
+			$.timer(0, function (timer) {
+				for (var i = 0; i < slideshow_config.images.length; i++) {
+					$('#slideshow_target').html('<img src="' + slideshow_config.images[i].src + '" alt="' + slideshow_config.images[i].src + '" /><p>' + slideshow_config.images[i].src + '</p>');
+					alert(slideshow_config.images[i].src);
+					timer.reset(slideshow_config.delay);
+				}
+			});
+			*/
+			var i = 0;
+			$.timer(0, function (timer) {
+				//for (var i = 0; i < slideshow_config.images.length; i++) {
+				//}
+				if (i >= slideshow_config.images.length) i = 0;
+				$('#slideshow_target').html('<img src="' + slideshow_config.images[i].src + '" alt="' + slideshow_config.images[i].src + '" /><p>' + slideshow_config.images[i].src + '</p>');
+				alert(slideshow_config.images[i].src);
+				i++;
+				timer.reset(slideshow_config.delay);
+			});
 		</script>
 	</head>
 	<body>
 		<div id="slideshow_target">
-		</div>
-		<div id="slideshow_start">
-			<a href="#">Click here to load addresses</a>
 		</div>
 	</body>
 </html>

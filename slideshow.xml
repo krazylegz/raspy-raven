@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <slideshow>
-	<timer>3</timer>
-	<image>
-		<src>myimage1.jpg</src>
-		<number>1</number>
-		<caption>Caption 1 goes here</caption>
-	</image>
-	<image>
-		<src>myimage2.jpg</src>
-		<number>2</number>
-		<caption>Caption 2 goes here</caption>
-	</image>
-	<image>
-		<src>myimage3.jpg</src>
-		<number>3</number>
-		<caption>Caption 3 goes here</caption>
-	</image>
+	<settings>
+		<timer>3000</timer>
+	</settings>
+	<images>
+		<image>
+			<src>myimage1.jpg</src>
+			<caption>Caption 1 goes here</caption>
+		</image>
+		<image>
+			<src>myimage2.jpg</src>
+			<caption>Caption 2 goes here</caption>
+		</image>
+		<image>
+			<src>myimage3.jpg</src>
+			<caption>Caption 3 goes here</caption>
+		</image>
+	</images>
 </slideshow>
